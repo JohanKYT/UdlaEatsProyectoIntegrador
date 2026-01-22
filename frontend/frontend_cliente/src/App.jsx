@@ -145,7 +145,29 @@ function App() {
       fetch(`${API_RESTAURANTE}/api/pedidos`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(pedido) })
       .then(async res => { 
           if(res.ok) { 
-              alert(`✅ PEDIDO ENVIADO\nTotal: $${totalFinal}`); 
+              // --- INICIO INTEGRACIÓN LAMBDA (Estimación de Tiempo) ---
+              try {
+                  // Contamos cuántos platos son
+                  const totalPlatos = carrito.length;
+                  
+                  // Llamamos a la Lambda en el puerto 8084
+                  const resLambda = await fetch(`http://${IP_PC}:8084/estimarTiempo`, {
+                      method: 'POST',
+                      headers: {'Content-Type': 'application/json'},
+                      body: String(totalPlatos) 
+                  });
+
+                  if (resLambda.ok) {
+                      const mensajeTiempo = await resLambda.text();
+                      alert(`✅ PEDIDO ENVIADO\nTotal: $${totalFinal}\n\n${mensajeTiempo}`);
+                  } else {
+                      // Si la lambda falla, mostramos solo el éxito normal
+                      alert(`✅ PEDIDO ENVIADO\nTotal: $${totalFinal}`); 
+                  }
+              } catch (e) {
+                  // Si la lambda está apagada, no rompemos el flujo
+                  alert(`✅ PEDIDO ENVIADO\nTotal: $${totalFinal}`); 
+              }
               setCarrito([]); setPisoSeleccionado(''); setAulaEscrita(''); setPantalla('historial'); 
           } else {
               const texto = await res.text();
