@@ -21,11 +21,16 @@ El sistema consta de tres módulos principales interconectados:
 1.  **MS-Restaurante (Puerto 8081):** Gestiona el menú, stock y recepción de pedidos.
 2.  **MS-Cliente (Puerto 8082):** Maneja el catálogo, carrito y perfil de usuario.
 3.  **MS-Repartidor (Puerto 8083):** Gestiona la logística, asignación de walkers y chat.
+4.  **🆕 MS-Function-Tiempo (Puerto 8084):** Módulo **Serverless**.
+    * Implementado con **Spring Cloud Function**.
+    * **Función Lambda Stateless:** Calcula tiempos de entrega basados en carga de trabajo sin persistencia de datos.
 
 **Tecnologías:**
 * **Base de Datos:** PostgreSQL (3 bases de datos aisladas en contenedor).
 * **Mensajería:** RabbitMQ (Colas durables para tolerancia a fallos).
+* **Backend:** Java 21 + Spring Boot 3.2.
 * **Frontend:** React 18 + TailwindCSS (Diseño Mobile-First).
+* **Serverless:** Spring Cloud Function (Lambda).
 
 ---
 
@@ -36,9 +41,12 @@ Sigue estos pasos para levantar el proyecto desde cero.
 ### 1. Infraestructura (Docker)
 El proyecto utiliza Docker Compose para orquestar la base de datos y el broker de mensajería.
 
-```bash
-cd infrastructure
-docker-compose up -d
+bash
+
+```cd infrastructure```
+
+```docker-compose up -d```
+
 Esto levantará PostgreSQL (puerto 5432) y RabbitMQ (puerto 5672) automáticamente.
 
 2. Backend (Microservicios)
@@ -48,26 +56,31 @@ Abrir la carpeta backend/ en IntelliJ IDEA.
 
 Ejecutar la clase Application.java de cada servicio:
 
-ms-restaurante
+```ms-restaurante```
 
-ms-cliente
+```ms-cliente```
 
-ms-repartidor
+```ms-repartidor```
+
+```ms-tiempoentrega```
 
 Verificar Swagger:
 
-Restaurante: http://localhost:8081/swagger-ui/index.html
+```Restaurante: http://localhost:8081/swagger-ui/index.html```
 
-Repartidor: http://localhost:8083/swagger-ui/index.html
+```Repartidor: http://localhost:8083/swagger-ui/index.html```
 
 3. Frontend (Aplicaciones Web/Móvil)
 Para cada aplicación en la carpeta frontend/:
 
 Bash
 
-cd frontend/app-cliente  # (Repetir para restaurante y repartidor)
-npm install
-npm run dev -- --host
+```cd frontend/app-cliente  # (Repetir para restaurante y repartidor)```
+
+```npm install```
+
+```npm run dev -- --host```
+
 ⚠️ Nota Importante sobre Conectividad Móvil: Para probar desde un celular real, asegúrese de actualizar la constante IP_PC en el archivo App.jsx con la dirección IPv4 de su ordenador (ej: 192.168.100.X).
 
 🧪 Pruebas Realizadas
