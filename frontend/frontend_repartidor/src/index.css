@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globales extra si los necesitas */
+body {
+  @apply bg-slate-950; /* Fondo oscuro por defecto */
+}

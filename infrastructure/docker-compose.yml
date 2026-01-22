@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # --- BASE DE DATOS (POSTGRESQL CENTRALIZADO) ---
+  udlaeats-db:
+    image: postgres:15
+    container_name: udlaeats_postgres_container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      # NOTA: Ya no ponemos POSTGRES_DB aquí porque el init.sql creará las 3.
+      # Postgres por defecto crea una llamada 'postgres' que usaremos de base.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      #Ejecuta el script SQL al iniciar
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # --- RABBITMQ (BUS DE MENSAJERÍA) ---
+  udlaeats-rabbit:
+    image: rabbitmq:3-management
+    container_name: udlaeats_rabbitmq_container
+    ports:
+      - "5672:5672"   # Conexión Java
+      - "15672:15672" # Panel Web
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
+volumes:
+  postgres_data:
