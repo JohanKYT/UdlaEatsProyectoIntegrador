@@ -131,7 +131,7 @@ El ciclo de vida de una entrega sigue este orden estricto:
     * `Backend/ms-restaurante`
     * `Backend/ms-cliente`
     * `Backend/ms-repartidor`
-    * `Backend/ms-function-tiempo`
+    * `Backend/ms-tiempoentrega`
 
 3.  **Verificación:**
     Acceder a `http://localhost:8081/swagger-ui/index.html` para verificar que el núcleo está activo.
