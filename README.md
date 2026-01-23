@@ -21,7 +21,7 @@ El sistema consta de tres módulos principales interconectados:
 1.  **MS-Restaurante (Puerto 8081):** Gestiona el menú, stock y recepción de pedidos.
 2.  **MS-Cliente (Puerto 8082):** Maneja el catálogo, carrito y perfil de usuario.
 3.  **MS-Repartidor (Puerto 8083):** Gestiona la logística, asignación de walkers y chat.
-4.  **🆕 MS-Function-Tiempo (Puerto 8084):** Módulo **Serverless**.
+4.  **MS-TiempoEntrega (Puerto 8084):** Módulo **Serverless**.
     * Implementado con **Spring Cloud Function**.
     * **Función Lambda Stateless:** Calcula tiempos de entrega basados en carga de trabajo sin persistencia de datos.
 
