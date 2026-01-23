@@ -71,11 +71,9 @@ Verificar Swagger:
 ```Repartidor: http://localhost:8083/swagger-ui/index.html```
 
 3. Frontend (Aplicaciones Web/Móvil)
-Para cada aplicación en la carpeta frontend/:
+Para cada aplicación en la carpeta frontend/ Abrimos un terminar en la carperta /frontend_cliente, /frontend_repartidor, /frontend-restaurante:
 
 Bash
-
-```cd frontend/app-cliente  # (Repetir para restaurante y repartidor)```
 
 ```npm install```
 
